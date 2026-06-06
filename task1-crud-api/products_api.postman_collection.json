@@ -1,0 +1,99 @@
+{
+  "info": {
+    "name": "Task 1 – Products CRUD API",
+    "description": "Sample requests for the Node + Express + MongoDB CRUD API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:5000/api" },
+    { "key": "product_id", "value": "REPLACE_WITH_REAL_ID" }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:5000/"
+      }
+    },
+    {
+      "name": "GET all products",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/products?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["products"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "10" },
+            { "key": "category", "value": "electronics", "disabled": true },
+            { "key": "isAvailable", "value": "true", "disabled": true }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET single product",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/products/{{product_id}}"
+      }
+    },
+    {
+      "name": "POST create product",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/products",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Wireless Headphones\",\n  \"description\": \"Noise-cancelling over-ear headphones with 30-hour battery\",\n  \"price\": 2999,\n  \"category\": \"electronics\",\n  \"stock\": 50,\n  \"isAvailable\": true\n}"
+        }
+      }
+    },
+    {
+      "name": "PUT replace product (full update)",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/products/{{product_id}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Wireless Headphones Pro\",\n  \"description\": \"Upgraded model with ANC\",\n  \"price\": 3999,\n  \"category\": \"electronics\",\n  \"stock\": 30,\n  \"isAvailable\": true\n}"
+        }
+      }
+    },
+    {
+      "name": "PATCH update product (partial)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/products/{{product_id}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 2499,\n  \"stock\": 100\n}"
+        }
+      }
+    },
+    {
+      "name": "DELETE product",
+      "request": {
+        "method": "DELETE",
+        "url": "{{base_url}}/products/{{product_id}}"
+      }
+    },
+    {
+      "name": "POST – validation error (missing fields)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/products",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"X\"\n}"
+        }
+      }
+    }
+  ]
+}
